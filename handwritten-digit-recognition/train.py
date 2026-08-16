@@ -7,6 +7,7 @@ from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 import numpy as np
 import pickle
+import json
 
 def training():
 	l = []
@@ -23,20 +24,23 @@ def training():
 	l.append(pca)
 	X_train_pca = pca.fit_transform(X_train)
 	X_test_pca = pca.transform(X_test)
-	log = LogisticRegression()
-	l.append(log)
-	log.fit(X_train_pca, y_train)
-	rf = RandomForestClassifier()
-	l.append(rf)
-	rf.fit(X_train_pca, y_train)
-	gb = GradientBoostingClassifier()
-	l.append(gb)
-	gb.fit(X_train_pca, y_train)
-	print('LogisticRegression accuracy:', log.score(X_test_pca, y_test))
-	print('RandomForest accuracy:', rf.score(X_test_pca, y_test))
-	print('GradientBoosting accuracy:', gb.score(X_test_pca, y_test))
+	models = {
+		'LogisticRegression': LogisticRegression(),
+		'RandomForest': RandomForestClassifier(),
+		'GradientBoosting': GradientBoostingClassifier(),
+	}
+	metrics = {}
+	for name, model in models.items():
+		model.fit(X_train_pca, y_train)
+		l.append(model)
+		acc = model.score(X_test_pca, y_test)
+		metrics[name] = acc
+		print(f'{name} accuracy: {acc:.4f}')
 	with open('training.pkl', 'wb') as f:
 		pickle.dump(l, f)
+	with open('metrics.json', 'w') as f:
+		json.dump(metrics, f, indent=2)
+	print('Metrics saved to metrics.json')
 
 if __name__ == '__main__':
 	training()

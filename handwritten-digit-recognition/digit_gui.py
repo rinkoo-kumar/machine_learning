@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox as tm
 from tkinter import Canvas, Button, Frame, PhotoImage, W, Tk
 import pickle
+import json
 from collections import Counter
 import cv2
 import numpy as np
@@ -13,8 +14,10 @@ class Login(Frame):
 		self.gb=0
 		self.btnlogin=Button(self,padx=10,pady=10,bd=10,fg='black',font=('arial',17,'bold'),width=10,text="Load",bg='powder blue',command=self.load)
 		self.btnpredict=Button(self,padx=10,pady=10,bd=10,fg='black',font=('arial',17,'bold'),width=10,text="predict",bg='powder blue',command=self.predict)
+		self.btnmetrics=Button(self,padx=10,pady=10,bd=10,fg='black',font=('arial',17,'bold'),width=10,text="metrics",bg='powder blue',command=self.show_metrics)
 		self.btnpredict.grid(row=0,column=1)
 		self.btnlogin.grid(row=0,column=0)
+		self.btnmetrics.grid(row=0,column=2)
 		self.canvas=Canvas(abc,width=400,height=200)
 		self.canvas.pack()
 		self.pack()
@@ -40,6 +43,14 @@ class Login(Frame):
 		p=Counter(l).most_common()[0][0]
 		prediction='prediction='+str(p)
 		tm.showinfo('completion box',prediction)
+	def show_metrics(self):
+		try:
+			with open('metrics.json') as f:
+				metrics=json.load(f)
+			msg='\n'.join(f'{name}: {acc:.4f}' for name,acc in metrics.items())
+		except FileNotFoundError:
+			msg='metrics.json not found. Run train.py first.'
+		tm.showinfo('Validation accuracy',msg)
 
 root=Tk()
 obj=Login(root)
