@@ -1,4 +1,4 @@
-# machine_learning
+﻿# machine_learning
 
 A collection of machine learning projects built with Python and
 [scikit-learn](https://scikit-learn.org/).
@@ -10,6 +10,8 @@ A collection of machine learning projects built with Python and
   `GradientBoosting` (with `StandardScaler` + `PCA`) plus a Tkinter GUI.
 - [sentiment-analysis](sentiment-analysis) — sentiment classification on movie
   reviews using scikit-learn.
+- [weather-forecasting](weather-forecasting) — weather prediction using machine
+  learning (`weather_prediction.ipynb`) with the Delhi weather dataset.
 
 ## Structure
 
@@ -20,8 +22,12 @@ machine_learning/
 │   ├── digit_gui.py      # Tkinter prediction GUI
 │   ├── requirements.txt
 │   └── README.md
-└── sentiment-analysis/
-    ├── sentiment_1.ipynb
-    ├── movie_reviews.csv
+├── sentiment-analysis/
+│   ├── sentiment_1.ipynb
+│   ├── movie_reviews.csv
+│   └── README.md
+└── weather-forecasting/
+    ├── weather_prediction.ipynb
+    ├── delhi-weather-data.zip
     └── README.md
 ```
