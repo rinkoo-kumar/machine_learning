@@ -1,0 +1,4 @@
+﻿pandas
+scikit-learn
+nltk
+# after install, run: python -m nltk.downloader stopwords
