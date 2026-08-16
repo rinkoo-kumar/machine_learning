@@ -1,10 +1,10 @@
-from tkinter import *
+import tkinter as tk
 from tkinter import messagebox as tm
+from tkinter import Canvas, Button, Frame, PhotoImage, W, Tk
 import pickle
 from collections import Counter
-#import cv2
+import cv2
 import numpy as np
-import photo_show
 class Login(Frame):
 	def __init__(self,abc):
 		super().__init__(abc)
@@ -30,7 +30,7 @@ class Login(Frame):
 		x=cv2.cvtColor(x,cv2.COLOR_BGR2GRAY)
 		x=cv2.resize(x,(28,28))
 		print(x.shape)
-		f=open('training.txt','rb')
+		f=open('training.pkl','rb')
 		k=pickle.load(f)
 		x=k[0].transform(x.reshape(1,-1).astype(np.float64))
 		x_pca=k[1].transform(x)
