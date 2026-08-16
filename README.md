@@ -1,7 +1,7 @@
 # machine_learning
 
 A Python digit recognition project built during a data science and machine
-learning course at Ducat, Noida.
+learning.
 
 ## Overview
 
